@@ -43,7 +43,10 @@ First I will begin by exporting the data and taking a look at some values
 ```{r}
 iq <- read.csv("lead-iq-01.csv")
 ```
-
+Here we will update the 999 IQ to 99
+```{r}
+iq$IQ[10] <- 99
+```
 
 Lets begin the analyses by looking at the first 6 rows of our data and the structure
 
@@ -100,7 +103,8 @@ the text.
 
 An example of this is the mean of the IQ data we have is `r mean(iq$IQ)`
 
-
+3. I have included the code to remove the IQ outlier of 999.
+  Now I can commit new changes and re-knit the html file
  
 
 
