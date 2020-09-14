@@ -1,0 +1,112 @@
+---
+title: "IQ Analysis"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+###################################
+ 
+## Stat Consulting: Hw 2
+Author: Erika Esquinca
+Class:  Bios 6621
+        Dr. Ryan Peterson
+Date:   9.15.2020
+
+
+The purpose of this assignment is to be able to create a new project in R using version
+control and a git repository. 
+This makes me work reproducible as any changes, previous code, and directories are all
+linked to github to store on the cloud.
+
+This report is on IQ levels based on lead exposure and must contain the following.
+
+
+A. A graph showing the IQ levels by location status
+
+B. At least one nicely formatted table using the 'kable' function
+
+C. A couple sentences of text (not on the graph, but in the body of the Rmarkdown document) describing the graph and the table
+
+D. Inline calculations giving the values of the means, that will be updated if the data are changed,
+
+E. At least one R code chunk.
+
+
+First I will begin by exporting the data and taking a look at some values
+
+```{r}
+iq <- read.csv("lead-iq-01.csv")
+```
+
+
+Lets begin the analyses by looking at the first 6 rows of our data and the structure
+
+```{r}
+str(iq)
+head(iq)
+```
+Looks like Smelter is a factor with two level "Far" = 1 & "Near" = 0 and IQ is an integer value.
+
+
+A. A graph showing the IQ levels by location status
+
+```{r}
+library(ggplot2)
+qplot(x= iq$Smelter, y= iq$IQ, 
+      xlab= "Smelter",
+      ylab= "IQ",
+      main= "Ranges of IQ when far or near smelter")
+```
+
+We can also interpret this data using boxplots, however notice that our outputs are 
+hard to read because of the outlier changing the scale
+
+```{r}
+plot(x= iq$Smelter, y= iq$IQ, 
+      xlab= "Smelter",
+      ylab= "IQ",
+      main= "Ranges of IQ when far or near smelter")
+
+```
+
+
+B. At least one nicely formatted table using the 'kable' function
+
+```{r}
+library(knitr)
+kable(summary(iq))
+kable(summary(iq[iq$Smelter == "Far",]))
+kable(summary(iq[iq$Smelter == "Near",]))
+
+```
+
+
+C. A couple sentences of text (not on the graph, but in the body of the Rmarkdown document) describing the graph and the table
+
+Notice now that the graphs ahow the IQ results obtained from individuals that are either considered near smelter which is a subject being within 1 mile of lead emitting ore smelter or more than 1 mile considered far. The most notable observation is that in the far category we have a subject with an IQ of 999.
+This then means we have a larger range of possible IQ's for the far category. 
+
+D. Inline calculations giving the values of the means, that will be updated if the data are changed,
+
+We can also now input values we can see using inline R code that get updated when the document
+gets knitted. This way if data changes you don't have to worry about integrating correct values into
+the text. 
+
+An example of this is the mean of the IQ data we have is `r mean(iq$IQ)`
+
+
+ 
+
+
+
+
+
+
+
+
